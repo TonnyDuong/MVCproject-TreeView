@@ -44,6 +44,7 @@
     }
 </style>
 
+@* Uses recursive behaviour to print the treeview*@
 @helper CreateBranch(MenuSite item)
 {
     var childList = Model.Where(a => a.ParentId == item.MenuId).ToList();
