@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TreeViewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="MenuSite">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="varchar(max)" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PointsOfInterest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Population" Type="int" />
+          <Property Name="EstablishedDate" Type="datetime" />
+          <Property Name="City" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_PointsOfInterest_Cities_CityId">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PointsOfInterest" Type="Self.PointsOfInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsOfInterest">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TreeViewModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuSite" EntityType="Self.MenuSite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PointsOfInterest" EntityType="Self.PointsOfInterest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PointsOfInterest_Cities_CityId" Association="Self.FK_PointsOfInterest_Cities_CityId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="PointsOfInterest" EntitySet="PointsOfInterest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TreeViewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PointsOfInterests" Relationship="Self.FK_PointsOfInterest_Cities_CityId" FromRole="Cities" ToRole="PointsOfInterest" />
+        </EntityType>
+        <EntityType Name="MenuSite">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PointsOfInterest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_PointsOfInterest_Cities_CityId" FromRole="PointsOfInterest" ToRole="Cities" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Population" Type="Int32" />
+          <Property Name="EstablishedDate" Type="DateTime" Precision="3" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_PointsOfInterest_Cities_CityId">
+          <End Role="Cities" Type="Self.City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PointsOfInterest" Type="Self.PointsOfInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PointsOfInterest">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CityInfoDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="MenuSites" EntityType="Self.MenuSite" />
+          <EntitySet Name="PointsOfInterests" EntityType="Self.PointsOfInterest" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <AssociationSet Name="FK_PointsOfInterest_Cities_CityId" Association="Self.FK_PointsOfInterest_Cities_CityId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="PointsOfInterest" EntitySet="PointsOfInterests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TreeViewModelStoreContainer" CdmEntityContainer="CityInfoDBEntities">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="TreeViewModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TreeViewModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuSites">
+            <EntityTypeMapping TypeName="TreeViewModel.MenuSite">
+              <MappingFragment StoreEntitySet="MenuSite">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PointsOfInterests">
+            <EntityTypeMapping TypeName="TreeViewModel.PointsOfInterest">
+              <MappingFragment StoreEntitySet="PointsOfInterest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="TreeViewModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Population" ColumnName="Population" />
+                <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

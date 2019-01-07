@@ -1,0 +1,23 @@
+﻿
+<h2>Delete</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <p>Please Select an item to delete:</p>
+        @Html.DropDownList("myList", "TOP");
+
+        <br /><br />
+        <button class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+        </button>
+        <a href="@Url.Action("index")" class="btn btn-warning">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+    }
+
+
+
+</div>

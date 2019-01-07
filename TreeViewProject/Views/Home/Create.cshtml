@@ -1,0 +1,32 @@
+﻿@model TreeViewProject.Models.MenuSiteModel
+<h2>Create</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <p>Please insert a name:</p>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "label-danger" })
+        <br />
+
+        <p>Please Select a parent:</p>
+        @Html.DropDownList("myList", "TOP");
+
+        <br /><br />
+
+        <button class="btn btn-success">
+            <i class="fas fa-plus-square"></i>
+            <span>
+                Create
+            </span>
+        </button>
+
+        <a href="@Url.Action("index")" class="btn btn-warning">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+    }
+
+
+
+</div>
