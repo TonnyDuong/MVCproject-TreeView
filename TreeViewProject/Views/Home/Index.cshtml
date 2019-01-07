@@ -1,48 +1,6 @@
 ﻿@model  List<TreeViewProject.MenuSite>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-<style>
-
-    /* Remove default bullets */
-    /* Remove default bullets */
-    ul, #myUL {
-        list-style-type: none;
-    }
-
-    /* Remove margins and padding from the parent ul */
-    #myUL {
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Style the MyCaret/arrow */
-    .MyCaret {
-        cursor: pointer;
-        user-select: none; /* Prevent text selection */
-    }
-
-        /* Create the MyCaret/arrow with a unicode, and style it */
-        .MyCaret::before {
-            content: "\25B6";
-            color: black;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-    /* Rotate the MyCaret/arrow icon when clicked on (using JavaScript) */
-    .MyCaret-down::before {
-        transform: rotate(90deg);
-    }
-
-    /* Hide the nested list */
-    .nested {
-        display: none;
-    }
-
-    /* Show the nested list when the user clicks on the MyCaret/arrow (with JavaScript) */
-    .active {
-        display: block;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="~/Content/TreeViewDesign.css"/>
 
 @* Uses recursive behaviour to print the treeview*@
 @helper CreateBranch(MenuSite item)
@@ -81,42 +39,6 @@
 
                 @foreach (var item in Model.Where(a => a.ParentId == 0))
                 {
-
-                    @*var childList = Model.Where(a => a.ParentId == item.MenuId).ToList();
-
-                    if (childList.Count != 0)
-                    {
-                        <li><span class="MyCaret">@item.MenuName</span>
-                            <ul class="nested">
-                                @foreach (var child in childList)
-                                {
-
-                                    var grandchildList = Model.Where(a => a.ParentId == child.MenuId).ToList();
-                                    if (grandchildList.Count != 0)
-                                    {
-                                        <li>
-                                            <span class="MyCaret">@child.MenuName</span>
-                                            <ul class="nested">
-                                                @foreach (var grandChild in grandchildList)
-                                                {
-                                                    <li>@grandChild.MenuName</li>
-                                                }
-                                            </ul>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li>@child.MenuName</li>
-                                    }
-                                }
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>@item.MenuName</li>
-                    }*@
-
                     @CreateBranch(item);
                 }
 
