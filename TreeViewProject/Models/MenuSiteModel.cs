@@ -14,5 +14,6 @@ namespace TreeViewProject.Models
 
         public string SelectedParent { get; set; }
 
+        public IEnumerable<SelectListItem> TreeList { get; set; }
     }
 }

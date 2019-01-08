@@ -5,13 +5,13 @@
     @using (Html.BeginForm())
     {
         <p>Please insert a name:</p>
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.EditorFor(m => m.Name)
         @Html.ValidationMessageFor(m => m.Name, null, new { @class = "label-danger" })
         <br />
 
         <p>Please Select a parent:</p>
-        @Html.DropDownList("myList", "TOP");
-
+        @*@Html.DropDownList("myName", ViewBag.myList as IEnumerable<SelectListItem>, "TOP" ,new { @class = "form-control"});*@
+        @Html.DropDownListFor(m => m.SelectedParent, Model.TreeList, "TOP", new { @class = "form-control" })
         <br /><br />
 
         <button class="btn btn-success">

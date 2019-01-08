@@ -42,23 +42,18 @@ namespace TreeViewProject.Controllers
             var myList = new List<string>();
             using (CityInfoDBEntities dc = new CityInfoDBEntities())
             {
-               // foreach (var entry in dc.MenuSites.OrderBy(T => T.ParentId).ToList())
-                //{ myList.Add(entry.ToString()); }
-
                 var ListQuery = from q in dc.MenuSites
                                 orderby q.MenuId
                                 select q.MenuName;
-                myList.AddRange(ListQuery.Distinct());
-                ViewBag.myList = new SelectList(myList);
-
+                myList.AddRange(ListQuery);
+                //ViewBag.myList = new SelectList(myList);
+                model.TreeList = new SelectList(myList);
             }
-
-            //model.ParentList = (IEnumerable<SelectListItem>) myList;
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Create(MenuSiteModel Model, string myList)
+        public ActionResult Create(MenuSiteModel Model)
         {
             if (String.IsNullOrEmpty(Model.Name))
             {
@@ -70,7 +65,7 @@ namespace TreeViewProject.Controllers
 
             using (CityInfoDBEntities dc = new CityInfoDBEntities())
             {
-                var MenuSiteModelId = dc.MenuSites.FirstOrDefault(i => i.MenuName == myList);
+                var MenuSiteModelId = dc.MenuSites.FirstOrDefault(i => i.MenuName == Model.SelectedParent);
                 if (MenuSiteModelId != null)
                 {
                     newEntry.ParentId = MenuSiteModelId.MenuId;
