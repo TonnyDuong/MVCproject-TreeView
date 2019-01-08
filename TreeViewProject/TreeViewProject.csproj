@@ -163,6 +163,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Alerts\Alert.cs" />
+    <Compile Include="Infrastructure\Alerts\AlertDecoratorResult.cs" />
+    <Compile Include="Infrastructure\Alerts\AlertExtensions.cs" />
     <Compile Include="MenuSite.cs">
       <DependentUpon>TreeViewModel.tt</DependentUpon>
     </Compile>
@@ -247,6 +250,7 @@
     </Content>
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

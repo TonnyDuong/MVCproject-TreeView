@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using TreeViewProject.Models;
 using Microsoft.Web.Mvc;
+using TreeViewProject.Infrastructure.Alerts;
 
 namespace TreeViewProject.Controllers
 {
@@ -64,7 +65,7 @@ namespace TreeViewProject.Controllers
         {
             if (String.IsNullOrEmpty(Model.Name))
             {
-                return(Create());
+                return(Create().WithError("Please provide a valid name!"));
             }
 
             MenuSite newEntry = new MenuSite();
@@ -87,7 +88,7 @@ namespace TreeViewProject.Controllers
                 dc.SaveChanges();
             }
 
-            return this.RedirectToAction<HomeController>(c => c.Index());
+            return this.RedirectToAction<HomeController>(c => c.Index()).WithSuccess("Item Created!");
         }
 
         
@@ -116,38 +117,18 @@ namespace TreeViewProject.Controllers
 
                 if (MenuSiteEntry != null)
                 {
-                    //var childList = dc.MenuSites.Where(a => a.ParentId == MenuSiteEntry.MenuId).ToList();
-                    //if (childList.Count != 0)
-                    //{
-                    //    foreach (var child in childList)
-                    //    {
-                    //        var grandChildList = dc.MenuSites.Where(a => a.ParentId == child.MenuId).ToList();
-                    //        if (grandChildList.Count != 0)
-                    //        {
-                    //            foreach (var grandChild in grandChildList)
-                    //            {
-                    //                dc.MenuSites.Remove(grandChild);
-                    //            }
-                    //        }
-
-                    //        dc.MenuSites.Remove(child);
-                    //    }
-
-
-                    //}
-                    //dc.MenuSites.Remove(MenuSiteEntry);
                     DeleteBranch(dc, MenuSiteEntry);
                     dc.SaveChanges();
                 }
                 else
                 {
-                    
+                    return this.RedirectToAction<HomeController>(c => c.Index())
+                        .WithError("Please select a valid item to delete!");
                 }
-
-
                 
             }
-            return this.RedirectToAction<HomeController>(c => c.Index());
+            return this.RedirectToAction<HomeController>(c => c.Index())
+                .WithSuccess("Branch Item successfully deleted.");
         }
 
         public void DeleteBranch(CityInfoDBEntities dc, MenuSite branch)
