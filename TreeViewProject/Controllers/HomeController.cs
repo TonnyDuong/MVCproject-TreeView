@@ -10,7 +10,7 @@ using TreeViewProject.Infrastructure.Alerts;
 
 namespace TreeViewProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : TreeViewProjectController
     {
         public List<MenuSite> Tree;
         public ActionResult Index()
@@ -20,21 +20,18 @@ namespace TreeViewProject.Controllers
             {
                 Tree = dc.MenuSites.OrderBy(T => T.MenuId).ToList();
             }
-
             return View(Tree);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -88,7 +85,7 @@ namespace TreeViewProject.Controllers
                 dc.SaveChanges();
             }
 
-            return this.RedirectToAction<HomeController>(c => c.Index()).WithSuccess("Item Created!");
+            return RedirectToAction<HomeController>(c => c.Index()).WithSuccess("Item Created!");
         }
 
         
@@ -122,12 +119,12 @@ namespace TreeViewProject.Controllers
                 }
                 else
                 {
-                    return this.RedirectToAction<HomeController>(c => c.Index())
+                    return RedirectToAction<HomeController>(c => c.Index())
                         .WithError("Please select a valid item to delete!");
                 }
                 
             }
-            return this.RedirectToAction<HomeController>(c => c.Index())
+            return RedirectToAction<HomeController>(c => c.Index())
                 .WithSuccess("Branch Item successfully deleted.");
         }
 

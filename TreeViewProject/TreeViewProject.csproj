@@ -157,6 +157,7 @@
       <DependentUpon>TreeViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TreeViewProjectController.cs" />
     <Compile Include="C__EFMigrationsHistory.cs">
       <DependentUpon>TreeViewModel.tt</DependentUpon>
     </Compile>
@@ -254,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TreeViewProject\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
